@@ -1,0 +1,166 @@
+{% load static %}
+{% include "navbar.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Ride</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7b442;
+            color: #333;
+            margin: 0;
+            padding: 0;
+          }
+          
+
+        .container {
+            max-width: 700px;
+            margin: 20px 30%;
+            padding: 30px;
+            background-color: #fcd77368;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+        }
+
+        .btn-primary {
+            background-color: #151417;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #f9ff82;
+        }
+
+        .posted-rides-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3498db;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .posted-rides-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .form-row {
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+
+        .form-row > .col,
+        .form-row > [class*="col-"] {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .btn-primary {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-car-side mr-3"></i>Post a Ride</h1>
+        <a href="{% url 'ride_list' %}" class="posted-rides-link"><i class="fas fa-list-ul mr-2"></i>My Posted Rides</a>
+        <form method="post" action="{% url 'post_ride' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="origin"><i class="fas fa-map-marker-alt mr-2"></i>Start</label>
+                    <input type="text" class="form-control" id="origin" name="origin" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="destination"><i class="fas fa-flag-checkered mr-2"></i>Destination</label>
+                    <input type="text" class="form-control" id="destination" name="destination" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="date"><i class="far fa-calendar-alt mr-2"></i>Date</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="time"><i class="far fa-clock mr-2"></i>Time</label>
+                    <input type="time" class="form-control" id="time" name="time" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="seats_available"><i class="fas fa-users mr-2"></i>Seats Available</label>
+                    <input type="number" class="form-control" id="seats_available" name="seats_available" min="1" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="price"><i class="fas fa-rupee-sign mr-2"></i>Price per seat</label>
+                    <input type="number" class="form-control" id="price" name="price" min="0" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="notes"><i class="fas fa-sticky-note mr-2"></i>Additional Notes</label>
+                <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="car_image"><i class="fas fa-image mr-2"></i>Upload Car Image</label>
+                <input type="file" class="form-control-file" id="car_image" name="car_image" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-paper-plane mr-2"></i>Post Ride</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

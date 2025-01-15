@@ -1,0 +1,121 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Your Vehicle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fbd35c;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 35px auto;
+            padding: 30px;
+            background-color: #fdc95990;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #232429;
+            font-size: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-input {
+            background-color: #fff6a971;
+            width: 90%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #fef765;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #e8d01a;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+
+        .form-input[type="file"] {
+            padding: 8px 15px 8px 40px;
+        }
+
+        .form-icon {
+            position: absolute;
+            left: 12px;
+            top: 38px;
+            color: #777;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #e89c1a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .btn-submit:hover {
+            background-color: #dec523b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-car"></i> Post Your Vehicle</h1>
+        <form method="post" action="{% url 'post_vehicle' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="vehicle_name" class="form-label">Vehicle Name</label>
+                <i class="fas fa-car form-icon"></i>
+                <input type="text" id="vehicle_name" name="vehicle_name" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="rent_per_day" class="form-label">Rent Per Day</label>
+                <i class="fas fa-rupee-sign form-icon"></i>
+                <input type="number" id="rent_per_day" name="rent_per_day" class="form-input" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="available_count" class="form-label">Available Count</label>
+                <i class="fas fa-hashtag form-icon"></i>
+                <input type="number" id="available_count" name="available_count" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="vehicle_image" class="form-label">Vehicle Image</label>
+                <i class="fas fa-image form-icon"></i>
+                <input type="file" id="vehicle_image" name="vehicle_image" class="form-input" required>
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-plus-circle"></i> Post Vehicle</button>
+        </form>
+    </div>
+</body>
+</html>

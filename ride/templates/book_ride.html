@@ -1,0 +1,67 @@
+{% include 'navbar.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Ride</title>
+    <link rel="stylesheet" href="{% static 'css/book_ride.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <div class="search-container">
+                <h1>Where to?</h1>
+                <form class="search-form" method="post" action="{% url 'book_ride' %}">
+                    {% csrf_token %}
+                <div class="form-group">
+                    <i class="fas fa-circle start-icon"></i>
+                    <input type="text" id="start" name="start" placeholder="Enter pickup location" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-map-marker-alt destination-icon"></i>
+                    <input type="text" id="destination" name="destination" placeholder="Enter destination" required>
+                </div>
+                <div class="form-group">
+                    <i class="far fa-calendar-alt date-icon"></i>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <button type="submit" class="btn-search">
+                    <i class="fas fa-search"></i> Search Rides
+                </button>
+            </form>
+        </div>
+        
+        <div class="ride-results">
+            <h2>Available Rides</h2>
+            
+            <div class="row">
+                {% for ride in rides %}
+                    
+                            <div class="ride-item">
+                                <div class="ride-info">
+                                    
+                                    <h3>{{ ride.origin }} to {{ ride.destination }}</h3>
+                                    <strong><p><i class="far fa-calendar-alt"></i> {{ ride.date }}</p>
+                                    <p><i class="far fa-clock"></i> {{ ride.time }}</p>
+                                    <p><i class="fas fa-user-friends"></i> {{ ride.seats_available }} seats available</p>
+                                    <p><i class="fas fa-rupee-sign"></i> {{ ride.price }}</p></strong>
+                                    <form method="post" action="{% url 'booking_confirmation' ride.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn-book">Book Now</button>
+                                    </form>
+                                </div>
+                                <div class="ride-image">
+                                    <img src="{{ ride.car_image.url }}" alt="Car Image" class="car-image">
+                                </div>
+                            </div>
+                    
+                {% endfor %}
+            </div>
+        
+        </div>
+    </div>
+</body>
+</html>

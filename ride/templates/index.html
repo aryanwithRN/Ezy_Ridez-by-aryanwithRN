@@ -1,0 +1,357 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EzyRidez</title>
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" sizes="180x180" href="{%static 'images/favicon.png'%}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="{%static 'images/logoo.png'%}" alt="ezyRidez logo">
+            </a>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="">Home</a></li>
+                    <li><a href="#BookRide">BookRide</a></li>
+                    <li><a href="#RentCar">RentCar</a></li>
+                    <li><a href="#service">AboutUs</a></li>
+                    <li><a href="{%url 'user_login'%}">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <section class="hero" id="Home">
+            <a href="#RentCar" class="section-arrow down-arrow"><i class="fas fa-chevron-down"></i></a>
+            <div class="hero-background"></div>
+                <div class="container hero-content">
+                    <h1>Easy and Fast Way to Get Your Ride</h1>
+                    <p>Lets Find Best Ride For You!</p>
+                    <form  method="post" action="{% url 'index_ride_search'%}">
+                      {% csrf_token %}
+                        <input id="BookRide" name="start" type="text" placeholder="Pick up Location">
+                        <input type="text" name="destination"  placeholder="Destination Location">
+                        <input type="date" name="date" placeholder="Pick up Date">
+                        <button type="submit">See Price</button>
+                    </form>
+                </div>
+        </section>
+        
+        <!-- Rental Carousel -->
+
+        <section class="inventory" id="RentCar">
+            <a href="#Home" class="section-arrow up-arrow"><i class="fas fa-chevron-up"></i></a>
+            <h2>Rental Inventory</h2>
+            <div class="car_container">
+                <div class="inventory">
+                    <div class="car_container">
+                        <div class="carousel">
+                            <div class="car-list">
+                                {% for vehicle in vehicles %}
+                                <div class="car {% if forloop.first %}active{% endif %}">
+                                    <div class="image-container">
+                                        <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="vehicle-image">
+                                    </div>
+                                    <div class="car-details">
+                                        <h3>Vehicle : {{ vehicle.name }}</h3>
+                                        <p class="price">₹{{ vehicle.rent_price_per_day }}/Day</p>
+                                        <a href="{% url 'user_login' %}" class="rent-button">Rent Now</a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-prev-rental prev-btn">&lt;</button>
+                <button class="carousel-next-rental next-btn">&gt;</button>
+            </div>
+            
+            <a href="#service" class="section-arrow down-arrow"><i class="fas fa-chevron-down"></i></a>
+        </section>
+        
+        
+        
+    <!-- Our Services section -->
+        
+        <section class="why-choose-us" id="service">
+            <a href="#RentCar" class="section-arrow up-arrow"><i class="fas fa-chevron-up"></i></a>
+            <div class="container">
+                <h2>Why Choose Us</h2>
+                <div class="reasons">
+                    <div class="reason">
+                        <i class="fa-solid fa-share"></i>
+                        
+                        <h3>Ride Sharing</h3>
+                        <p>Get matched with other riders heading in the same direction and split the cost of the trip.</p>
+                    </div>
+                    <div class="reason">
+                        <i class="fas fa-car"></i>
+                        <h3>Car Pooling</h3>
+                        <p>Share a ride with other passengers and reduce traffic congestion and your carbon footprint.</p>
+                    </div>
+                    <div class="reason">
+                        <i class="fa fa-inr" aria-hidden="true"></i>
+                        <h3>On-Demand Rides</h3>
+                        <p>Hail a ride instantly and get picked up by a nearby driver at any time of day or night with affordable Price .</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#AboutUs" class="section-arrow down-arrow"><i class="fas fa-chevron-down"></i></a>
+        </section>
+
+       
+        <!-- testimonial section  -->
+        <section class="testimonials" id="AboutUs">
+            <a href="#service" class="section-arrow up-arrow"><i class="fas fa-chevron-up"></i></a>
+            <div class="container">
+                <h2>What Our Customers Say</h2>
+                <div class="testimonial-carousel">
+                    <div class="testimonial-list">
+                        <div class="testimonial">
+                            <div class="profile">
+                                <img src="/media/user3.jpg" alt="Virat ">
+                                <div class="profile-info">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <h3>Virat Kohli</h3>
+                                </div>
+                            </div>
+                            <p>"This is the best car rental service I have ever used. The cars are in excellent condition, and the booking process is seamless."</p>
+                        </div>
+                        <div class="testimonial">
+                            <div class="profile">
+                                <img src="/media/user4.jpeg" alt="Rishab">
+                                <div class="profile-info">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fa fa-star-half"></i>
+                                    </div>
+                                    <h3>Rishab Pant</h3>
+                                </div>
+                            </div>
+                            <p>"This is the best car rental service I have ever used. The cars are in excellent condition, and the booking process is seamless."</p>
+                        </div>
+                        <div class="testimonial">
+                            <div class="profile">
+                                <img src="/media/user2.jpeg" alt="Aryan">
+                                <div class="profile-info">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fa fa-star-half"></i>
+                                        
+                                    </div>
+                                    <h3>Aryan Mahadure</h3>
+                                </div>
+                            </div>
+                            <p>"This is the best car rental service I have ever used. The cars are in excellent condition, and the booking process is seamless."</p>
+                        </div>
+                        <div class="testimonial">
+                            <div class="profile">
+                                <img src="/media/user2.png" alt="RN">
+                                <div class="profile-info">
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <h3>Rn Mahadure</h3>
+                                </div>
+                            </div>
+                            <p>"This is the best car rental service I have ever used. The cars are in excellent condition, and the booking process is seamless."</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-prev">&lt;</button>
+                <button class="carousel-next">&gt;</button>
+            </div>
+        </section>
+        <div id="loginPopup" class="login-popup">
+            <div class="login-container">
+                <button id="closePopup" class="close-popup">&times;</button>
+                <h3>Login karke aarmse Dekh le bhai</h3>
+                <a href="{% url 'user_login' %}" class="popup-login-btn">Login</a>
+            </div>
+        </div>
+        
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-container">
+          <div class="footer-top">
+            <div class="footer-logo">
+              <h2>EzyRidez</h2>
+              <img src="{%static 'images/logoo.png'%}"></img>
+              
+              
+            </div>
+            <div class="footer-menu">
+              <h3>MENU</h3>
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#BookRide">BookRide</a></li>
+                <li><a href="#RentCar">RentCar</a></li>
+                <li><a href="#service">AboutUs</a></li>
+              </ul>
+            </div>
+            <div class="footer-address">
+              <h3>About</h3> 
+                <p>This description highlights:</p>
+                <p>The core technology (Django)</p>
+                <p>Important features (Google login, CRUD operations)</p>
+                <p>The overall focus on modern web development and transportation solutions </p>
+              
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div class="social-icons">
+              <span class="rights">© EzyRidez All Rights Reserved.</span>
+            </div>
+            <div class="dev_contact">
+                <h3>Connect With Developers</h3>
+            </div>
+            <div class="contact-info">
+                
+              <div>
+                <h4>Aryan Mahadure</h4>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/aryan-mahadure"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/aryanmahadure"><i class="fab fa-twitter"></i></a>
+                    <a href="mailto:zero9rn@gmail.com"><i class="fa-solid  fa-envelope"></i></a>
+                  </div>
+              </div>
+              <div>
+                <h4>Aditya Umratkar</h4>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/swe-aditya/"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:adityaumaratkar@gmail.com"><i class="fa-solid  fa-envelope"></i></a>
+                    
+                  </div>
+                <div id="loginPopup" class="login-popup">
+                    <div class="login-container">
+                        <button id="closePopup" class="close-popup">&times;</button>
+                        <h3>Login karke aarmse Dekh le bhai</h3>
+                        <a href="{% url 'user_login' %}" class="popup-login-btn">Login</a>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+
+
+    <script>
+        // for pop up login 
+        $(document).ready(function() {
+            const $whyChooseUsSection = $('.why-choose-us');
+            const $loginPopup = $('#loginPopup');
+            const $closePopup = $('#closePopup');
+            let popupShown = false;
+
+            $(window).on('scroll', function() {
+                const rect = $whyChooseUsSection[0].getBoundingClientRect();
+                if (rect.top <= $(window).height() && rect.bottom >= 0 && !popupShown) {
+                    $loginPopup.fadeIn();
+                    popupShown = true;
+                }
+            });
+
+            $closePopup.on('click', function() {
+                $loginPopup.fadeOut();
+            });
+
+            // Ensuring the popup doesn't show on page reload
+            $(window).on('load', function() {
+                if (popupShown) {
+                    $loginPopup.hide();
+                }
+            });
+        });
+
+        // for rental carousel  
+            $(document).ready(function() {
+            const $carList = $('.car-list');
+            const $cars = $('.car');
+            const $prevBtn = $('.prev-btn');
+            const $nextBtn = $('.next-btn');
+            let currentIndex = 0;
+            const carCount = $cars.length;
+
+            const updateCarousel = () => {
+                $carList.css('transform', `translateX(-${currentIndex * 50/2}%)`);
+            };
+
+            $nextBtn.click(() => {
+                currentIndex = (currentIndex < carCount - 1) ? currentIndex + 1 : 0;
+                updateCarousel();
+            });
+
+            $prevBtn.click(() => {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : carCount - 1;
+                updateCarousel();
+            });
+
+            setInterval(() => {
+                currentIndex = (currentIndex < carCount - 1) ? currentIndex + 1 : 0;
+                updateCarousel();
+            }, 5000); // Change the interval time as needed
+            });
+
+        // for testimonial carousel
+                $(document).ready(function() {
+                const $testimonialList = $('.testimonial-list');
+                const $prevButton = $('.carousel-prev');
+                const $nextButton = $('.carousel-next');
+                const $testimonials = $('.testimonial');
+                const testimonialWidth = $testimonials.first().outerWidth(true); // Including margin
+                let currentIndex = 0;
+
+                function updateCarousel() {
+                    $testimonialList.css('transform', `translateX(-${currentIndex * testimonialWidth}px)`);
+                }
+
+                $prevButton.on('click', function() {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateCarousel();
+                    }
+                });
+
+                $nextButton.on('click', function() {
+                    if (currentIndex < $testimonials.length - 2) {
+                        currentIndex++;
+                        updateCarousel();
+                    }
+                });
+
+                // Initial update
+                updateCarousel();
+});
+
+    </script>
+</body>
+</html>

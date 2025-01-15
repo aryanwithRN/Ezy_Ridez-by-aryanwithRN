@@ -1,0 +1,45 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ride Share{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/vehicle_section.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome-free-5.15.3-web/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    {% block content %}
+    <div class="main-tariff">
+        <h1 class="section-heading text-uppercase text-center">Vehicles For Rent</h1>
+        <div id="vehicleCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for vehicle in vehicles %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="tarrif-container d-flex justify-content-center">
+                        <div class="inner-box">
+                            <!-- Display image -->
+                            <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="vehicle-image">
+                            <div class="card-content">
+                                <a href="#Login" class="btn btn-primary">Book now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#vehicleCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#vehicleCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    {% endblock %}

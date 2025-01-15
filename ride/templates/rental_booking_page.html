@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3a6ea5;
+            --secondary-color: #004e98;
+            --accent-color: #ff9f1c;
+            --text-color: #333333;
+            --background-color: #fec346;
+            --card-background: #f9d578de;
+            --input-border: #e0e0e0;
+            --input-focus: #3a6ea5;
+            --button-color: #3a6ea5;
+            --button-hover: #004e98;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--card-background);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 2.5em;
+        }
+
+        .vehicle-image {
+            display: block;
+            margin: 0 auto 30px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .rent-price, .total-price {
+            text-align: center;
+            font-size: 1.8em;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .date-fields {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .date-field {
+            flex: 1 1 calc(50% - 10px);
+            min-width: 200px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            height: 56px;
+        }
+
+        .input-wrapper input[type="text"] {
+            width: 100%;
+            height: 100%;
+            padding: 20px 16px;
+            border: 2px solid var(--input-border);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--card-background);
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper input[type="text"]:focus {
+            outline: none;
+            border-color: var(--input-focus);
+            box-shadow: 0 0 0 3px rgba(58, 110, 165, 0.2);
+        }
+
+        .input-wrapper label {
+            position: absolute;
+            left: 16px;
+            top: 20px;
+            font-size: 16px;
+            color: #757575;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .input-wrapper input[type="text"]:focus + label,
+        .input-wrapper input[type="text"]:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 10px;
+            font-size: 12px;
+            color: var(--input-focus);
+            background-color: var(--card-background);
+            padding: 0 6px;
+        }
+
+        .input-wrapper .fas {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #757575;
+            pointer-events: none;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .button-wrapper {
+            flex: 1;
+            max-width: 250px;
+            min-width: 200px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            background-color: var(--button-color);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #book-vehicle-btn {
+            background-color: var(--accent-color);
+        }
+
+        #book-vehicle-btn:hover {
+            background-color: #e08700;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .date-field {
+                flex: 1 1 100%;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .button-wrapper {
+                width: 100%;
+                max-width: none;
+            }
+        }
+
+        /* Custom styling for datepicker */
+        .ui-datepicker {
+            font-family: 'Poppins', sans-serif;
+            border-radius: a12px;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ui-datepicker-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .ui-datepicker-calendar thead th {
+            color: var(--primary-color);
+        }
+
+        .ui-state-default, .ui-widget-content .ui-state-default {
+            background-color: #f4f7f9;
+            border: none;
+            color: var(--text-color);
+            border-radius: 4px;
+        }
+
+        .ui-state-highlight, .ui-widget-content .ui-state-highlight {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .ui-state-active, .ui-widget-content .ui-state-active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+    
+    <div class="main-content">
+        <div class="container">
+            <h1>Book {{ vehicle.name }}?</h1>
+            <img src="{{ vehicle.image.url }}" alt="{{ vehicle.name }}" class="vehicle-image">
+            <p class="rent-price">Daily Rate: ₹<span id="rent-price">{{ vehicle.rent_price_per_day }}</span></p>
+            
+            <div class="total-price">Total Rental Cost: ₹<span id="total-rent">0</span></div>
+
+            <div class="date-fields">
+                <div class="date-field">
+                    <div class="input-wrapper">
+                        <input type="text" id="start_date" name="start_date" required placeholder=" ">
+                        <label for="start_date">Start Date</label>
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                </div>
+                <div class="date-field">
+                    <div class="input-wrapper">
+                        <input type="text" id="end_date" name="end_date" required placeholder=" ">
+                        <label for="end_date">End Date</label>
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="button-container">
+                <div class="button-wrapper">
+                    <button type="button" class="btn" id="calculate-rent-btn">Calculate Rent</button>
+                </div>
+                <div class="button-wrapper">
+                    <button type="button" class="btn" id="book-vehicle-btn">Book Vehicle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#start_date, #end_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "c-100:c+10",
+            });
+
+            $("#start_date").change(function() {
+                var startDate = $(this).datepicker('getDate');
+                $("#end_date").datepicker('option', 'minDate', startDate);
+            });
+
+            const today = new Date();
+            $('#start_date').datepicker('setDate', today);
+            $('#end_date').datepicker('option', 'minDate', today);
+        });
+
+        $('#calculate-rent-btn').click(function() {
+            const rentPrice = parseFloat($('#rent-price').text());
+            const startDate = $('#start_date').datepicker('getDate');
+            const endDate = $('#end_date').datepicker('getDate');
+
+            if (startDate && endDate && endDate >= startDate) {
+                const timeDifference = endDate.getTime() - startDate.getTime();
+                const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+                const totalRent = daysDifference * rentPrice;
+                $('#total-rent').text(totalRent.toFixed(2));
+            } else {
+                $('#total-rent').text("0");
+            }
+        });
+
+        $('#book-vehicle-btn').click(function() {
+            const vehicleName = "{{ vehicle.name }}";
+            const vehicleImage = "{{ vehicle.image.url }}";
+            const rentPrice = parseFloat($('#rent-price').text());
+            const startDate = $('#start_date').val();
+            const endDate = $('#end_date').val();
+            const totalRent = $('#total-rent').text();
+
+            if (startDate && endDate && totalRent > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "book_vehicle" %}',
+                    data: {
+                        'vehicle_name': vehicleName,
+                        'vehicle_image': vehicleImage,
+                        'start_date': startDate,
+                        'end_date': endDate,
+                        'total_rent': totalRent,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        alert('Vehicle booked successfully!');
+                        // Redirect to success page or handle success response
+                    },
+                    error: function(response) {
+                        alert('An error occurred. Please try again.');
+                        // Handle error response
+                    }
+                });
+            } else {
+                alert('Please select valid dates and calculate rent before booking.');
+            }
+        });
+    </script>
+</body>
+</html>

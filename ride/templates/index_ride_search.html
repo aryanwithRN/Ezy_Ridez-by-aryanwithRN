@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Ride</title>
+    <link rel="stylesheet" href="{% static 'css/index_ride_search.css' %}">
+    <!-- Add Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Add the home icon here -->
+        <a href="{% url 'index' %}" class="home-icon">
+            <i class="fas fa-home"></i>
+        </a>
+        
+        <h1>Search Ride</h1>
+        <div class="ride-results">
+            {% if rides %}
+                <h2>Available Rides</h2>
+                <ul class="ride-list">
+                    {% for ride in rides %}
+                        <li class="ride-item">
+                            <div class="car-image-container">
+                                <img src="{{ ride.car_image.url }}" alt="Car Image" class="car-image">
+                            </div>
+                            <div class="ride-info">
+                                <h3>{{ ride.origin }} to {{ ride.destination }}</h3>
+                                <p><strong>Date:</strong> {{ ride.date }}</p>
+                                <p><strong>Time:</strong> {{ ride.time }}</p>
+                                <p><strong>Seats Available:</strong> {{ ride.seats_available }}</p>
+                                <p><strong>Price:</strong> ₹{{ ride.price }}</p>
+                                <a href="{% url 'user_login' %}" class="btn-book">Book Ride</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h2>No rides available for this route.</h2>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

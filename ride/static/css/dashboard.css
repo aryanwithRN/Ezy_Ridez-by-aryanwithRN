@@ -1,0 +1,101 @@
+/* Reset default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* background-color: #cae1f7; */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    background:  url("../images/back_dash.gif") no-repeat center center/cover; /* Replace 'path/to/your/background/image.jpg' with the actual path to your image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.6); /* Added a semi-transparent background for better readability */
+}
+
+.card {
+    
+    background-color: #fffdf4;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-image {
+    width: 120px; /* Adjust the width as needed */
+    height: 120px; /* Adjust the height as needed */
+    margin-right: 20px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.card-content {
+    flex-grow: 1;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f7d92c;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ffe676;
+    transform: scale(1.05);
+}
+
+/* Additional styles for more professional look */
+.header, .footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.header {
+    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: bold;
+}
+

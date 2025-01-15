@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Bookings</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .vehicle-image {
+            max-width: 100px;
+            margin-right: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 90%;
+            }
+            .vehicle-image {
+                max-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Bookings</h1>
+        {% if bookings %}
+            <ul>
+                {% for booking in bookings %}
+                    <li>
+                        {% if booking.booked_car_image %}
+                            <img src="{{ booking.booked_car_image.url }}" alt="Vehicle Image" class="vehicle-image">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}
+                        <div>
+                            <p><strong>Booking Number:</strong> {{ booking.id }}</p>
+                           
+                            <p><strong>Date:</strong> {{ booking.date }}</p>
+                            <p><strong>Time:</strong> {{ booking.time }}</p>
+                            <p><strong>Start From:</strong> {{ booking.start_from }}</p>
+                            <p><strong>Destination:</strong> {{ booking.destination }}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No bookings found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

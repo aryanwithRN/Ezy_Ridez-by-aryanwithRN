@@ -1,0 +1,90 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: url("{% static 'images/book1.png' %}") no-repeat center top;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    min-height: 100vh;
+}
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #1c2025;
+    font-size: 2.5rem;
+}
+.vehicle-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.vehicle-card {
+    display: flex;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    width: calc(50% - 10px);
+}
+.vehicle-card:hover {
+    transform: translateY(-5px);
+}
+.vehicle-image {
+    flex: 0 0 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 10px;
+}
+.vehicle-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+.vehicle-content {
+    flex: 1;
+    padding: 20px;
+}
+.vehicle-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #1a1d20;
+}
+.rent-price {
+    font-size: 1.1rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f9c938;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.btn:hover {
+    background-color: #f0b810;
+}
+.not-available {
+    color: #dc3545;
+    font-weight: bold;
+}
+@media (max-width: 768px) {
+    .vehicle-card {
+        width: 100%;
+    }
+}

@@ -1,0 +1,81 @@
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Trips</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe46b;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid #adbabe;
+            text-align: left;
+            font-size: 1em;
+        }
+        th {
+            background-color: #6c7ae0;
+            color: #fff;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        @media (max-width: 768px) {
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Recent Trips</h1>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Vehicle Name</th>
+                    <th>Return Date</th>
+                    <th>Total Rent (per day)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in expired_bookings %}
+                    <tr>
+                       <td><strong>{{ booking.vehicle_name }}</strong></td>
+                       <td><strong>{{ booking.end_date }}</strong></td>
+                        <td><strong>₹{{ booking.total_rent }}</strong></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
